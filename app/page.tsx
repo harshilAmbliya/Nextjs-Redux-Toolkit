@@ -1,15 +1,16 @@
 "use client";
-import { fetchUsers } from "@/store/slices/userSlice";
+import { RootState } from "@reduxjs/toolkit/query";
 import { useAppSelector, useAppDispatch } from "../hooks/selector";
-import { RootState } from "@/store/store";
+import { fetchUsers } from "@/store/actions/usersAction";
+import { useRouter } from "next/navigation";
 export default function Home() {
-  const { users } = useAppSelector((state: RootState) => state.users);
+  const { users } = useAppSelector((state: any) => state.users);
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const handleClick = async () => {
-    dispatch(fetchUsers());
+    dispatch(fetchUsers(router));
   };
 
-  console.log("users", users);
   return (
     <div>
       <h1>Home Page</h1>
